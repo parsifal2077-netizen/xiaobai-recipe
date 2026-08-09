@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小白减脂食谱 · 贾维斯出品</title>
+<style>
+  :root {
+    --bg: #08080c;
+    --surface: #111118;
+    --surface2: #18181f;
+    --surface2: rgba(24,24,31,0.92);
+    --border: #25252d;
+    --border-hover: #3a3a45;
+    --text: #e4e4ec;
+    --text2: #9d9dab;
+    --text3: #6b6b7b;
+    --green: #34d399;
+    --green-dim: #1e4a3a;
+    --amber: #fbbf24;
+    --amber-dim: #4a3a1e;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(52,211,153,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 15% 70%, rgba(96,165,250,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 85% 60%, rgba(251,191,36,0.03) 0%, transparent 50%),
+      #08080c;
+    color: var(--text);
+    font-family: 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated background */
+  .bg-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.5;
+    animation: orbFloat 12s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(52,211,153,0.3), transparent 70%);
+    top: -200px; left: -100px;
+    animation-duration: 14s;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,0.25), transparent 70%);
+    top: 40%; right: -150px;
+    animation-duration: 16s;
+    animation-delay: -4s;
+  }
+  .orb-3 {
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(251,191,36,0.2), transparent 70%);
+    bottom: -150px; left: 30%;
+    animation-duration: 18s;
+    animation-delay: -8s;
+  }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(40px, -30px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(30px, 10px) scale(1.05); }
+  }
+
+  /* Dot grid overlay */
+  .bg-grid {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+
+  /* Content sits above the Unicorn canvas */
+  .hero, .container, .stats-bar, footer { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 60vw; max-width: 600px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .hero .label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--green-dim);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #f0f0f5;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--green) 20%, var(--amber) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .sub {
+    color: var(--text2);
+    font-size: 1rem;
+    margin-top: 0.8rem;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1.8rem 1.5rem;
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .n {
+    font-size: 1.8rem;
+    font-weight: 720;
+    color: #f0f0f5;
+    letter-spacing: -0.02em;
+  }
+  .stat-item .l {
+    font-size: 0.72rem;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin: 3rem 0 1.2rem;
+  }
+  .section-head h2 {
+    font-size: 1.3rem;
+    font-weight: 680;
+    letter-spacing: -0.02em;
+  }
+  .section-head .pill {
+    font-size: 0.68rem;
+    color: var(--text3);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+
+  /* ── MACRO GRID ── */
+  .macro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 560px) { .macro-grid { grid-template-columns: 1fr; } }
+  .macro-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .macro-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .macro-card.train::before { background: var(--green); }
+  .macro-card.rest::before { background: var(--blue); }
+  .macro-card .mc-head {
+    font-size: 0.8rem;
+    font-weight: 680;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .macro-card.train .mc-head { color: var(--green); }
+  .macro-card.rest .mc-head { color: var(--blue); }
+  .mc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .mc-row:last-child { border-bottom: none; }
+  .mc-row .ml { color: var(--text2); }
+  .mc-row .mv { font-weight: 650; }
+  .mv.p { color: var(--red); }
+  .mv.c { color: var(--amber); }
+  .mv.f { color: #fbbf24; opacity: 0.8; }
+
+  /* ── MEAL PICKER ── */
+  .meal-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .meal-tab {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1.3rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .meal-tab:hover { border-color: var(--border-hover); color: var(--text); }
+  .meal-tab.active {
+    background: var(--surface2);
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .meal-tab .kcal {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-left: 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ── RECIPE CARDS ── */
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.8rem;
+    align-items: start;
+  }
+  .recipe-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .recipe-card:hover { border-color: var(--border-hover); }
+  .recipe-card.expanded { border-color: var(--green); }
+
+  .rc-header {
+    padding: 1rem 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .rc-header .rc-name { font-weight: 650; font-size: 0.95rem; }
+  .rc-header .rc-arrow {
+    color: var(--text3);
+    font-size: 0.8rem;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .recipe-card.expanded .rc-arrow { transform: rotate(180deg); }
+
+  .rc-macros {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0 1.1rem 0.9rem;
+    flex-wrap: wrap;
+  }
+  .rc-macro {
+    font-size: 0.7rem;
+    font-weight: 650;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--surface2);
+    letter-spacing: 0.03em;
+  }
+  .rc-macro.pro { color: var(--red); }
+  .rc-macro.carb { color: var(--amber); }
+  .rc-macro.fat { color: #fbbf24; }
+
+  .rc-detail {
+    display: none;
+    padding: 0 1.1rem 1.1rem;
+    border-top: 1px solid var(--border);
+    animation: fadeSlide 0.3s ease;
+  }
+  .recipe-card.expanded .rc-detail { display: block; }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .rc-detail h4 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin: 0.8rem 0 0.4rem;
+  }
+  .rc-detail .ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .rc-detail .ingredient {
+    font-size: 0.78rem;
+    background: var(--surface2);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    color: var(--text2);
+  }
+  .rc-detail .steps { list-style: none; padding: 0; }
+  .rc-detail .steps li {
+    font-size: 0.82rem;
+    color: var(--text2);
+    padding: 0.35rem 0;
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+  .rc-detail .steps li .step-num {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 1.2rem;
+  }
+
+  /* ── SAUCE ── */
+  .sauce-card {
+    background: var(--surface);
+    border: 1px solid var(--green);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .sauce-card .formula {
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--green);
+  }
+  .sauce-card .note {
+    color: var(--text3);
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+  }
+
+  /* ── TIPS ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin: 1rem 0;
+  }
+  @media (max-width: 560px) { .tips-grid { grid-template-columns: 1fr; } }
+  .tip-card {
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.84rem;
+    border-left: 3px solid;
+  }
+  .tip-card.warn { background: #1a1215; border-color: var(--red); }
+  .tip-card.good { background: #121a15; border-color: var(--green); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--text3);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  /* ── HIDDEN PANELS ── */
+  .hidden { display: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .hero { padding: 3rem 1rem 2rem; }
+    .stats-bar { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ ANIMATED BACKGROUND ═══ -->
+<div class="bg-glow">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="label">Jarvis × Fitness</div>
+  <h1>小白<em>减脂食谱</em></h1>
+  <p class="sub">173 cm · 71.6 kg · 目标 67 kg / 体脂 12–14% · 薄肌男大路线</p>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="n">1900</div><div class="l">训练日 kcal</div></div>
+  <div class="stat-item"><div class="n">1700</div><div class="l">休息日 kcal</div></div>
+  <div class="stat-item"><div class="n">143</div><div class="l">蛋白质 g/天</div></div>
+  <div class="stat-item"><div class="n">500</div><div class="l">热量缺口 kcal</div></div>
+</div>
+
+<div class="container">
+
+<!-- ═══ 每日宏量 ═══ -->
+<div class="section-head"><h2>每日宏量目标</h2><span class="pill">Macro Targets</span></div>
+<div class="macro-grid">
+  <div class="macro-card train">
+    <div class="mc-head">🏋️ 训练日 · 1900 kcal</div>
+    <div class="mc-row"><span class="ml">🥩 蛋白质</span><span class="mv p">143g</span></div>
+    <div class="mc-row"><span class="ml">🍚 碳水</span><span class="mv c">200 – 220g</span></div>
+    <div class="mc-row"><span class="ml">🧈 脂肪</span><span class="mv f">35 – 45g</span></div>
+  </div>
+  <div class="macro-card rest">
+    <div class="mc-head">🛌 休息日 · 1700 kcal</div>
+    <div class="mc-row"><span class="ml">🥩 蛋白质</span><span class="mv p">143g</span></div>
+    <div class="mc-row"><span class="ml">🍚 碳水</span><span class="mv c">130 – 150g</span></div>
+    <div class="mc-row"><span class="ml">🧈 脂肪</span><span class="mv f">35 – 45g</span></div>
+  </div>
+</div>
+
+<!-- ═══ 餐食选择 ═══ -->
+<div class="section-head"><h2>今天吃什么</h2><span class="pill">Meal Picker</span></div>
+<div class="meal-tabs">
+  <div class="meal-tab active" data-meal="breakfast">🌅 早餐<span class="kcal">~480 kcal</span></div>
+  <div class="meal-tab" data-meal="lunch">☀️ 午餐<span class="kcal">~550 kcal</span></div>
+  <div class="meal-tab" data-meal="dinner">🌙 晚餐<span class="kcal">~420 kcal</span></div>
+  <div class="meal-tab" data-meal="snack">🍌 加餐<span class="kcal">饿了才吃</span></div>
+</div>
+
+<div class="recipes-grid" id="recipesGrid"></div>
+
+<!-- ═══ 万能酱汁 ═══ -->
+<div class="section-head"><h2>万能减脂调味</h2><span class="pill">Sauce</span></div>
+<div class="sauce-card">
+  <div class="formula">酱油 1勺 + 醋 1勺 + 蒜末 + 蚝油少许 + 辣椒粉 + 零卡糖一丢丢</div>
+  <div class="note">= 酸辣灵魂酱汁 · 拌什么都好吃 · 约 15 kcal</div>
+</div>
+
+<!-- ═══ 减脂避坑 ═══ -->
+<div class="section-head"><h2>减脂避坑指南</h2><span class="pill">Tips</span></div>
+<div class="tips-grid">
+  <div class="tip-card warn"><strong>❌ 油炒蔬菜</strong> — 一勺油 120 kcal，水煮/蒸/凉拌才是正道</div>
+  <div class="tip-card warn"><strong>❌ 沙拉酱</strong> — 一勺 100 kcal，用上面酱汁代替</div>
+  <div class="tip-card warn"><strong>❌ 水果当饭吃</strong> — 果糖也是糖，每天 ≤2 份</div>
+  <div class="tip-card warn"><strong>❌ 蛋白质不够</strong> — 143g 是底线，减脂不掉肌的命门</div>
+  <div class="tip-card good"><strong>✅ 每周一顿欺骗餐</strong> — 完全 OK，别愧疚也别报复性节食</div>
+  <div class="tip-card good"><strong>✅ 睡眠 > 饮食 > 训练</strong> — 熬夜直接掉肌肉囤脂肪</div>
+  <div class="tip-card good"><strong>✅ 每周称一次</strong> — 同一天早上空腹，掉 0.3–0.5kg = 完美</div>
+  <div class="tip-card good"><strong>✅ 多喝水</strong> — 每天 2.5–3L，脂肪代谢必需</div>
+</div>
+
+</div><!-- /container -->
+
+<footer>🛠️ 贾维斯出品 · 为小白定制 · 2026.08.10 · 数据驱动 · 随时调整</footer>
+
+<script src="anime.umd.min.js"></script>
+<script>
+// ═══ RECIPE DATA ═══
+const recipes = {
+  breakfast: [
+    {
+      name: '燕麦牛奶 + 水煮蛋',
+      kcal: 465,
+      protein: 28, carb: 52, fat: 9,
+      ingredients: ['燕麦 40g', '脱脂牛奶 200ml', '鸡蛋 1个', '香蕉 半根'],
+      steps: [
+        '燕麦倒入碗中，加牛奶或开水刚好没过',
+        '微波炉高火 2 分钟，或焖 5 分钟至软糯',
+        '同时冷水下鸡蛋，水开后煮 7 分钟（溏心）/ 9 分钟（全熟）',
+        '燕麦出锅，放上切片香蕉，鸡蛋剥壳蘸酱油一起吃掉'
+      ]
+    },
+    {
+      name: '全麦面包 + 双煎蛋',
+      kcal: 480,
+      protein: 24, carb: 38, fat: 16,
+      ingredients: ['全麦面包 2片', '鸡蛋 2个', '生菜 3-4片', '黑胡椒少许'],
+      steps: [
+        '平底锅喷少量油，中小火烧热',
+        '打入两个鸡蛋，撒黑胡椒，煎至蛋白凝固、边缘微焦',
+        '面包烤 1 分钟（或直接吃冷的也行）',
+        '面包夹生菜和煎蛋，对半切开——三明治风格'
+      ]
+    },
+    {
+      name: '蛋白粉香蕉奶昔',
+      kcal: 480,
+      protein: 36, carb: 56, fat: 6,
+      ingredients: ['蛋白粉 1勺 (30g)', '香蕉 1根', '燕麦 30g', '脱脂牛奶 250ml'],
+      steps: [
+        '香蕉去皮切段，燕麦用开水泡 2 分钟变软',
+        '所有材料丢进榨汁机/搅拌杯',
+        '打 20 秒至顺滑无颗粒',
+        '倒出来直接喝，练前练后都合适'
+      ]
+    }
+  ],
+  lunch: [
+    {
+      name: '鸡胸肉炒丁 + 西兰花 + 杂粮饭',
+      kcal: 560,
+      protein: 58, carb: 48, fat: 6,
+      ingredients: ['鸡胸肉 180g', '西兰花 200g', '杂粮饭 150g', '酱油 1勺', '蚝油 半勺', '蒜 2瓣'],
+      steps: [
+        '鸡胸肉切 2cm 见方的小丁，加少许酱油抓腌 5 分钟',
+        '西兰花掰成小朵，水开焯 1 分钟捞出',
+        '平底锅喷油，中大火下鸡丁，翻炒至表面金黄（约 4 分钟）',
+        '加入焯好的西兰花、蚝油、蒜末，翻炒 1 分钟出锅',
+        '杂粮饭 150g 配在旁边——先吃肉菜，再吃饭'
+      ]
+    },
+    {
+      name: '清蒸巴沙鱼 + 番茄金针菇汤',
+      kcal: 530,
+      protein: 38, carb: 42, fat: 5,
+      ingredients: ['巴沙鱼 200g', '番茄 1个', '金针菇 150g', '姜 3片', '米饭 120g'],
+      steps: [
+        '巴沙鱼解冻擦干，两面抹少许盐和姜片',
+        '水开后上锅蒸 8-10 分钟（筷子能轻松戳穿即可）',
+        '同时番茄切块，锅里少油翻炒出汁，加水烧开',
+        '放入金针菇煮 2 分钟，少许盐调味',
+        '鱼出锅淋几滴酱油，配米饭和番茄汤一起吃'
+      ]
+    },
+    {
+      name: '鸡蛋豆腐煲 + 红薯',
+      kcal: 540,
+      protein: 34, carb: 50, fat: 22,
+      ingredients: ['鸡蛋 3个', '嫩豆腐 150g', '红薯 200g', '酱油 1勺', '葱少许'],
+      steps: [
+        '红薯洗净去皮，切块，蒸 20 分钟至软',
+        '豆腐切小块，鸡蛋打散加少许盐',
+        '锅底喷油，倒蛋液半凝固时放入豆腐块',
+        '小火慢推，蛋全熟后淋酱油撒葱花',
+        '红薯当主食——甜的和咸的一起吃很搭'
+      ]
+    }
+  ],
+  dinner: [
+    {
+      name: '虾仁滑蛋 + 时蔬',
+      kcal: 430,
+      protein: 48, carb: 26, fat: 8,
+      ingredients: ['虾仁 180g', '鸡蛋 1个', '任意绿叶菜 200g', '料酒少许', '半个红薯（训练日）'],
+      steps: [
+        '虾仁解冻沥干，加少许料酒抓一下去腥',
+        '鸡蛋打散，蔬菜洗净备用',
+        '锅热喷油，中火炒虾仁至变色弯曲（约 2 分钟）',
+        '倒入蛋液，转小火，推至凝固立即关火——蛋要嫩',
+        '蔬菜水煮或清炒，训练日加半个红薯'
+      ]
+    },
+    {
+      name: '金枪鱼沙拉大碗',
+      kcal: 380,
+      protein: 30, carb: 18, fat: 5,
+      ingredients: ['金枪鱼罐头 1罐（水浸）', '生菜 200g', '黄瓜 半根', '番茄 1个', '玉米粒 80g（训练日）'],
+      steps: [
+        '金枪鱼开罐沥干水分',
+        '生菜手撕大片、黄瓜切片、番茄切块',
+        '所有材料丢进大碗',
+        '淋万能酱汁（酱油+醋+蒜末+辣椒粉）拌匀',
+        '训练日额外加玉米粒 80g'
+      ]
+    },
+    {
+      name: '手撕鸡胸凉拌 + 黄瓜丝',
+      kcal: 400,
+      protein: 40, carb: 32, fat: 4,
+      ingredients: ['鸡胸肉 120g', '黄瓜 1根', '酱油 1勺', '醋 1勺', '蒜末', '半个全麦馒头（训练日）'],
+      steps: [
+        '鸡胸肉冷水下锅，水开后煮 8 分钟，关火焖 5 分钟',
+        '捞出放凉，顺着纹理撕成细丝',
+        '黄瓜切丝，和鸡丝一起放大碗',
+        '酱油+醋+蒜末调酱，浇上去拌匀',
+        '训练日配半个全麦馒头，休息日只吃鸡丝黄瓜'
+      ]
+    }
+  ],
+  snack: [
+    {
+      name: '水煮蛋 1-2 个',
+      kcal: 140, protein: 14, carb: 1, fat: 10,
+      ingredients: ['鸡蛋 2个', '酱油少许'],
+      steps: ['冷水下锅，水开后煮 7-9 分钟', '捞出冷水冲一下好剥壳', '蘸酱油吃']
+    },
+    {
+      name: '蛋白粉补给',
+      kcal: 110, protein: 25, carb: 3, fat: 1,
+      ingredients: ['蛋白粉 1勺', '冷水/牛奶 250ml'],
+      steps: ['摇摇杯加液体', '加蛋白粉', '盖紧摇 15 秒，喝掉']
+    },
+    {
+      name: '黄瓜番茄无限量',
+      kcal: 30, protein: 2, carb: 6, fat: 0,
+      ingredients: ['黄瓜', '番茄'],
+      steps: ['洗干净', '直接啃', '随便吃']
+    },
+    {
+      name: '无糖酸奶',
+      kcal: 70, protein: 5, carb: 10, fat: 2,
+      ingredients: ['无糖酸奶 150g'],
+      steps: ['打开', '吃']
+    }
+  ]
+};
+
+// ═══ RENDER RECIPES ═══
+const grid = document.getElementById('recipesGrid');
+const tabs = document.querySelectorAll('.meal-tab');
+let currentMeal = 'breakfast';
+
+function renderRecipes(meal) {
+  const items = recipes[meal];
+  grid.innerHTML = items.map((r, i) => {
+    const macros = [];
+    macros.push(`<span class="rc-macro pro">P ${r.protein}g</span>`);
+    macros.push(`<span class="rc-macro carb">C ${r.carb}g</span>`);
+    macros.push(`<span class="rc-macro fat">F ${r.fat}g</span>`);
+    return `
+      <div class="recipe-card" data-index="${i}">
+        <div class="rc-header" data-action="toggle">
+          <div class="rc-name">${r.name}</div>
+          <div class="rc-arrow">▼</div>
+        </div>
+        <div class="rc-macros">${macros.join('')}</div>
+        <div class="rc-detail">
+          <h4>🛒 食材</h4>
+          <div class="ingredients">${r.ingredients.map(ing => `<span class="ingredient">${ing}</span>`).join('')}</div>
+          <h4>👨‍🍳 做法</h4>
+          <ol class="steps">${r.steps.map((s, j) => `<li><span class="step-num">${j+1}.</span>${s}</li>`).join('')}</ol>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Bind click events
+  grid.querySelectorAll('.rc-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const card = this.closest('.recipe-card');
+      const wasExpanded = card.classList.contains('expanded');
+      // Close all others
+      grid.querySelectorAll('.recipe-card.expanded').forEach(c => c.classList.remove('expanded'));
+      if (!wasExpanded) card.classList.add('expanded');
+    });
+  });
+
+  // Animate cards in
+  if (typeof anime !== 'undefined') {
+    anime.animate(grid.querySelectorAll('.recipe-card'), {
+      opacity: [0, 1],
+      translateY: [20, 0],
+      delay: anime.stagger(60),
+      duration: 500,
+      easing: 'out(3)'
+    });
+  }
+}
+
+// ═══ TAB SWITCHING ═══
+tabs.forEach(tab => {
+  tab.addEventListener('click', function() {
+    tabs.forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    currentMeal = this.dataset.meal;
+    renderRecipes(currentMeal);
+  });
+});
+
+// ═══ INIT ═══
+renderRecipes('breakfast');
+
+// Subtle stats bar entrance
+if (typeof anime !== 'undefined') {
+  anime.animate('.stat-item', {
+    opacity: [0, 1],
+    translateY: [12, 0],
+    delay: anime.stagger(80),
+    duration: 600,
+    easing: 'out(3)'
+  });
+}
+</script>
+</body>
+</html>
